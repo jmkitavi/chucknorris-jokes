@@ -11,7 +11,22 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            title: 'Chuck Norris Jokes',
+            headerStyle: {
+              backgroundColor: 'black',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              color: '#cccccc',
+              fontSize: 21,
+            },
+          }}
+        />
         <Stack.Screen name="Joke" component={Joke} />
       </Stack.Navigator>
     </NavigationContainer>
