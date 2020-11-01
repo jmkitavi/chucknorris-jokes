@@ -27,7 +27,13 @@ const App = () => {
             },
           }}
         />
-        <Stack.Screen name="Joke" component={Joke} />
+        <Stack.Screen
+          name="Joke"
+          component={Joke}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )
