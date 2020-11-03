@@ -4,6 +4,7 @@ import { Text, View, Image, TouchableOpacity, ScrollView } from 'react-native'
 import moment from 'moment'
 
 import { AppContext } from '../../context'
+import { fetchRandomJoke, fetchRandomCategoryJoke } from '../../api'
 import BackIcon from '../../../assets/back'
 import NextIcon from '../../../assets/next'
 import ShareIcon from '../../../assets/share'
@@ -14,6 +15,33 @@ import styles from './styles'
 const Joke: FC<Props> = ({ navigation }) => {
   const { state, dispatch } = useContext(AppContext)
   const { joke, loading } = state
+
+  const shuffleJoke = () => {
+    dispatch({ type: 'LOADING', payload: true })
+
+    fetchRandomJoke()
+      .then((res) => {
+        dispatch({ type: 'SET_JOKE', payload: res.data })
+        dispatch({ type: 'LOADING', payload: false })
+      })
+      .catch((err) => {
+        dispatch({ type: 'LOADING', payload: false })
+      })
+  }
+
+  const getCategoryJoke = (category: string) => {
+    navigation.navigate('Joke')
+    dispatch({ type: 'LOADING', payload: true })
+
+    fetchRandomCategoryJoke(category)
+      .then((res) => {
+        dispatch({ type: 'LOADING', payload: false })
+        dispatch({ type: 'SET_JOKE', payload: res.data })
+      })
+      .catch((err) => {
+        dispatch({ type: 'LOADING', payload: false })
+      })
+  }
 
   return (
     <View style={styles.container}>
@@ -73,14 +101,19 @@ const Joke: FC<Props> = ({ navigation }) => {
             <Text style={styles.actionText}>SHARE</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => shuffleJoke()}>
             <View style={styles.iconContainer}>
               <ShuffleIcon />
             </View>
             <Text style={styles.actionText}>SHUFFLE</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              joke?.categories[0] ?
+                getCategoryJoke(joke?.categories[0]) : shuffleJoke()
+            }}
+          >
             <View style={styles.iconContainer}>
               <NextIcon />
             </View>
