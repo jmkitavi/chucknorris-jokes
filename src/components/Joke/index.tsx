@@ -4,10 +4,14 @@ import { Text, View, Image, TouchableOpacity, ScrollView } from 'react-native'
 import moment from 'moment'
 
 import { AppContext } from '../../context'
+import BackIcon from '../../../assets/back'
+import NextIcon from '../../../assets/next'
+import ShareIcon from '../../../assets/share'
+import ShuffleIcon from '../../../assets/shuffle'
 import Props from './types'
 import styles from './styles'
 
-const Joke: FC<Props> = () => {
+const Joke: FC<Props> = ({ navigation }) => {
   const { state, dispatch } = useContext(AppContext)
   const { joke, loading } = state
 
@@ -16,7 +20,12 @@ const Joke: FC<Props> = () => {
       <StatusBar style="light" />
 
       <View style={styles.header}>
-        <View style={styles.back} />
+        <TouchableOpacity
+          style={styles.back}
+          onPress={() => navigation.goBack()}
+        >
+          <BackIcon {...styles.backIcon} />
+        </TouchableOpacity>
         <View>
           <Text style={styles.headerText}>Chuck Norris Jokes</Text>
         </View>
@@ -47,8 +56,9 @@ const Joke: FC<Props> = () => {
                   />
                   <Text style={styles.jokeData}>
                     {(joke?.categories && joke?.categories?.length > 0) &&
-                      `${joke.categories[0].charAt(0).toUpperCase() + joke.categories[0].slice(1)}, ${joke?.created_at && moment(joke.created_at).format('D MMM')}`
-                    }</Text>
+                      `${joke.categories[0].charAt(0).toUpperCase() + joke.categories[0].slice(1)},`
+                    } {joke?.created_at && moment(joke.created_at).format('D MMM')}
+                    </Text>
                 </View>
               </View>
             </>
@@ -56,9 +66,27 @@ const Joke: FC<Props> = () => {
         </View>
 
         <View style={styles.actions}>
-          <TouchableOpacity style={styles.actionButton} />
-          <TouchableOpacity style={styles.actionButton} />
-          <TouchableOpacity style={styles.actionButton} />
+          <TouchableOpacity>
+            <View style={styles.iconContainer}>
+              <ShareIcon />
+            </View>
+            <Text style={styles.actionText}>SHARE</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <View style={styles.iconContainer}>
+              <ShuffleIcon />
+            </View>
+            <Text style={styles.actionText}>SHUFFLE</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <View style={styles.iconContainer}>
+              <NextIcon />
+            </View>
+            <Text style={styles.actionText}>NEXT</Text>
+          </TouchableOpacity>
+
         </View>
 
         {(joke && loading) &&
