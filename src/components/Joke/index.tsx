@@ -1,6 +1,13 @@
 import React, { FC, useContext } from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { Text, View, Image, TouchableOpacity, ScrollView } from 'react-native'
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  Share,
+} from 'react-native'
 import moment from 'moment'
 
 import { AppContext } from '../../context'
@@ -94,7 +101,15 @@ const Joke: FC<Props> = ({ navigation }) => {
         </View>
 
         <View style={styles.actions}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              Share.share({
+                message: joke?.value,
+              }, {
+                dialogTitle: 'Share Joke'
+              })
+            }
+          >
             <View style={styles.iconContainer}>
               <ShareIcon />
             </View>
