@@ -71,7 +71,7 @@ const Joke: FC<Props> = ({ navigation }) => {
         <View style={styles.content}>
           {(!joke && loading) ?
             <Image
-              source={require('../../../loader.gif')}
+              source={require('../../../assets/loader.gif')}
               style={styles.loaderImage}
             /> :
             <>
@@ -139,7 +139,7 @@ const Joke: FC<Props> = ({ navigation }) => {
 
         {(joke && loading) &&
           <Image
-            source={require('../../../loader.gif')}
+            source={require('../../../assets/loader.gif')}
             style={[
               styles.loaderImage,
               { marginTop: 20 }

@@ -73,7 +73,7 @@ const Home: FC<Props> = ({ navigation }) => {
     if (categories?.length < 1 && loading) {
       return (
         <Image
-          source={require('../../../loader.gif')}
+          source={require('../../../assets/loader.gif')}
           style={styles.loaderImage}
         /> 
       )
@@ -126,7 +126,7 @@ const Home: FC<Props> = ({ navigation }) => {
       return (
         <>
           <Image
-            source={require('../../../loader.gif')}
+            source={require('../../../assets/loader.gif')}
             style={styles.loaderImage}
           />
           <Text style={styles.categoriesInfo}>Chuck Norris is getting some jokes</Text>
