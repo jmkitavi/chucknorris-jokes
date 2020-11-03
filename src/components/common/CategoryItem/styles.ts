@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    paddingHorizontal: scale(15,)
+    paddingHorizontal: scale(15)
   },
   categoryText: {
     color: 'white',

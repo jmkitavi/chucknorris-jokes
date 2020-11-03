@@ -1,4 +1,4 @@
 export default interface Props {
   category: string
-  navigation: any
+  onSelect: (category: string) => void
 }

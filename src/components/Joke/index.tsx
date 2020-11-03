@@ -1,11 +1,16 @@
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { Text, View, Image, TouchableOpacity } from 'react-native'
+import { Text, View, Image, TouchableOpacity, ScrollView } from 'react-native'
+import moment from 'moment'
 
+import { AppContext } from '../../context'
 import Props from './types'
 import styles from './styles'
 
 const Joke: FC<Props> = () => {
+  const { state, dispatch } = useContext(AppContext)
+  const { joke, loading } = state
+
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
@@ -18,16 +23,36 @@ const Joke: FC<Props> = () => {
         <View style={styles.back} />
       </View>
 
-      <View style={styles.content}>
-        <Image
-          source={{ uri: 'https://assets.chucknorris.host/img/avatar/chuck-norris.png' }}
-          style={styles.jokeImage}
-        />
-        <View style={styles.jokeContainer}>
-          <Text style={styles.jokeText}>
-            MacGyver can build an airplane out of gum and paper clips, but Chuck Norris can roundhouse-kick his head through a wall and take it.
-          </Text>
-          <Text style={styles.jokeData}>Movie, 25 Jan</Text>
+      <ScrollView>
+        <View style={styles.content}>
+          {(!joke && loading) ?
+            <Image
+              source={require('../../../loader.gif')}
+              style={styles.loaderImage}
+            /> :
+            <>
+              <Image
+                source={require('../../../assets/icon.png')}
+                style={styles.jokeImage}
+              />
+              <View style={styles.jokeContainer}>
+                <Text style={styles.jokeText}>
+                  {joke?.value}
+                </Text>
+
+                <View style={styles.bottomContent}>
+                  <Image
+                    source={{ uri: joke?.icon_url }}
+                    style={styles.bottomIcon}
+                  />
+                  <Text style={styles.jokeData}>
+                    {(joke?.categories && joke?.categories?.length > 0) &&
+                      `${joke.categories[0].charAt(0).toUpperCase() + joke.categories[0].slice(1)}, ${joke?.created_at && moment(joke.created_at).format('D MMM')}`
+                    }</Text>
+                </View>
+              </View>
+            </>
+          }
         </View>
 
         <View style={styles.actions}>
@@ -35,7 +60,17 @@ const Joke: FC<Props> = () => {
           <TouchableOpacity style={styles.actionButton} />
           <TouchableOpacity style={styles.actionButton} />
         </View>
-      </View>
+
+        {(joke && loading) &&
+          <Image
+            source={require('../../../loader.gif')}
+            style={[
+              styles.loaderImage,
+              { marginTop: 20 }
+            ]}
+          />
+        }
+      </ScrollView>
     </View>
   )
 }

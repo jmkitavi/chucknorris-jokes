@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar'
 import { Text, View, FlatList, ScrollView, TextInput, Image, RefreshControl } from 'react-native'
 
 import { AppContext } from '../../context'
-import { fetchCategories } from '../../api'
+import { fetchCategories, fetchRandomCategoryJoke } from '../../api'
 import CategoryItem from '../common/CategoryItem'
 import Props from './types'
 import styles from './styles'
@@ -27,6 +27,20 @@ const Home: FC<Props> = ({ navigation }) => {
           payload: res.data
         })
         dispatch({ type: 'LOADING', payload: false })
+      })
+      .catch((err) => {
+        dispatch({ type: 'LOADING', payload: false })
+      })
+  }
+
+  const getCategoryJoke = (category: string) => {
+    navigation.navigate('Joke')
+    dispatch({ type: 'LOADING', payload: true })
+
+    fetchRandomCategoryJoke(category)
+      .then((res) => {
+        dispatch({ type: 'LOADING', payload: false })
+        dispatch({ type: 'SET_JOKE', payload: res.data })
       })
       .catch((err) => {
         dispatch({ type: 'LOADING', payload: false })
@@ -58,8 +72,8 @@ const Home: FC<Props> = ({ navigation }) => {
             keyExtractor={(category) => category}
             renderItem={(category) =>
               <CategoryItem
+                onSelect={getCategoryJoke}
                 category={category.item}
-                navigation={navigation}
               />
             }
             ListEmptyComponent={() => {

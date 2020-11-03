@@ -60,8 +60,20 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     marginVertical: scale(10),
   },
+  bottomContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: scale(10),
+  },
+  bottomIcon: {
+    height: scale(20),
+    width: scale(20),
+    bottom: -5,
+    left: -5,
+  },
 
   actions: {
+    width: '80%',
     flexDirection: 'row',
     justifyContent: 'space-around',
     margin: scale(30),
@@ -71,7 +83,13 @@ const styles = StyleSheet.create({
     width: 60,
     borderRadius: 30,
     backgroundColor: 'black'
-  }
+  },
+
+  loaderImage: {
+    height: 70,
+    width: 70,
+    alignSelf: 'center',
+  },
 })
 
 export default styles
