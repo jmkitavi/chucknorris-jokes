@@ -5,7 +5,7 @@ import { scale } from '../../utils'
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    backgroundColor: '#1a1a1a',
+    backgroundColor: '#111111',
     paddingHorizontal: scale(12),
   },
   header: {
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     fontSize: 21,
   },
   searchContainer: {
-    backgroundColor: '#4d4d4d',
+    backgroundColor: '#303030',
     height: scale(40),
     width: '100%',
     alignSelf: 'center',
@@ -49,15 +49,21 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     fontSize: 15,
     marginVertical: 10,
+    textAlign: 'center'
   },
   footer: {
     padding: scale(50)
+  },
+  loaderImage: {
+    height: 70,
+    width: 70,
+    alignSelf: 'center',
   },
 
 
   categoryContainer: {
     height: scale(60),
-    backgroundColor: '#4d4d4d',
+    backgroundColor: '#2b2b2b',
     borderRadius: scale(8),
     marginBottom: 15,
     elevation: 10,

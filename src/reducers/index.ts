@@ -7,7 +7,7 @@ export type JokeType = {
 }
 
 export type InitialStateType = {
-  categories?: string[]
+  categories: string[]
   joke?: JokeType
   searchResults?: JokeType[]
   loading: boolean
